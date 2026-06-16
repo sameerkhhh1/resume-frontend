@@ -1,0 +1,95 @@
+.register-container {
+  height: 99vh;
+  width: 99vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0d131d;
+}
+
+.register-child {
+  padding: 25px;
+  border-radius: 10px;
+  border: 1px solid #6a727d;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 427px;
+}
+
+.register-upper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.register-title,
+.register-subtitle,
+.register-text {
+  margin: 0;
+}
+
+.register-title {
+  color: #f8f8f9;
+}
+
+.register-subtitle {
+  color: #a9aeb9;
+}
+
+.register-text {
+  color: #8b9199;
+  margin-top: 5px;
+}
+
+.register-form {
+  width: 100%;
+}
+
+.register-input-con {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.register-input {
+  height: 40px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #6a727d;
+  background-color: #1a1f2b;
+  color: white;
+}
+
+.register-button {
+  width: 100%;
+  height: 50px;
+  margin-top: 15px;
+  background-color: #8751fa;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.register-button:hover {
+  background-color: #a272fa;
+}
+
+.error-input {
+  border: 1px solid red;
+}
+
+.error-text {
+  color: red;
+  font-size: 12px;
+  margin: 0;
+}
+
+.register-login-link {
+  color: #8b9199;
+  margin-top: 10px;
+}
