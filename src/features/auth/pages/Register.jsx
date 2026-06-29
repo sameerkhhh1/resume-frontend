@@ -2,7 +2,27 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { registerSchema } from "../validations/auth.register";
-import "./register.css";
+
+const inputStyle = {
+  width: "100%",
+  padding: "18px 18px",
+  borderRadius: "12px",
+  border: "1px solid #374151",
+  backgroundColor: "#1f2937",
+  color: "#ffffff",
+  outline: "none",
+  fontSize: "15px",
+  boxSizing: "border-box",
+};
+
+const errorStyle = {
+  margin: "0px",
+  padding: "0px",
+  color: "#f87171",
+  fontSize: "12px",
+  marginTop: "4px",
+  marginLeft: "4px",
+};
 
 export const Register = () => {
   const [username, setUsername] = useState("");
@@ -38,11 +58,9 @@ export const Register = () => {
         setPassword("");
         setConfirmPassword("");
         alert("User registered successfully");
-
         navigate("/");
       }
     } catch (error) {
-      // Yup validation errors
       if (error.inner) {
         const formErrors = {};
         error.inner.forEach((err) => {
@@ -51,69 +69,236 @@ export const Register = () => {
         setErrors(formErrors);
       }
 
-      // API errors
       if (error.response?.data?.message) {
         alert(error.response.data.message);
       }
     }
   };
 
-  if (loading) return <h1 style={{ color: "white" }}>Loading...</h1>;
+  if (loading)
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#0D131D",
+        }}
+      >
+        <h2 style={{ color: "white" }}>Loading...</h2>
+      </div>
+    );
 
   return (
-    <div className="register-container">
-      <div className="register-child">
-        <div className="register-upper">
-          <h3 className="register-subtitle">AI Resume Scorer & Generator</h3>
-          <h1 className="register-title">Sign Up</h1>
-          <p className="register-text">Create your account</p>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        background: "#0D131D",
+        padding: "20px",
+      }}
+    >
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "1100px",
+          minHeight: "620px",
+          display: "flex",
+          borderRadius: "20px",
+          overflow: "hidden",
+          backgroundColor: "#111827",
+          boxShadow: "0px 10px 40px rgba(0,0,0,0.5)",
+        }}
+      >
+        {/* LEFT SIDE */}
+        <div style={{ width: "50%", position: "relative" }}>
+          <img
+            src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=1200"
+            alt="Register"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.72))",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              padding: "48px",
+              color: "white",
+            }}
+          >
+            <h1
+              style={{
+                fontSize: "38px",
+                marginBottom: "16px",
+                backgroundColor: "transparent",
+                color: "white",
+              }}
+            >
+              AI Resume Scorer & Generator
+            </h1>
+            <p
+              style={{
+                fontSize: "17px",
+                lineHeight: "1.8",
+                color: "#d1d5db",
+                backgroundColor: "transparent",
+                margin: 0,
+              }}
+            >
+              Create your account and unlock AI-powered resume scoring, tailored
+              feedback, and instant generation to land your dream job.
+            </p>
+          </div>
         </div>
 
-        <form className="register-form" onSubmit={handleSubmit}>
-          <div className="register-input-con">
-            <input
-              className={`register-input ${errors.username ? "error-input" : ""}`}
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <p className="error-text">{errors.username}</p>
+        {/* RIGHT SIDE */}
+        <div
+          style={{
+            width: "50%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "40px",
+          }}
+        >
+          <div style={{ width: "100%", maxWidth: "420px" }}>
+            <h2
+              style={{
+                color: "white",
+                marginBottom: "6px",
+                textAlign: "center",
+                fontSize: "26px",
+              }}
+            >
+              Create Account
+            </h2>
+            <p
+              style={{
+                color: "#8b9199",
+                textAlign: "center",
+                marginBottom: "28px",
+                fontSize: "18px",
+              }}
+            >
+              Sign up to get started
+            </p>
 
-            <input
-              className={`register-input ${errors.email ? "error-input" : ""}`}
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <p className="error-text">{errors.email}</p>
+            <form
+              onSubmit={handleSubmit}
+              style={{ display: "flex", flexDirection: "column", gap: "4px" }}
+            >
+              <div>
+                <input
+                  placeholder="Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  style={{
+                    ...inputStyle,
+                    border: errors.username
+                      ? "1px solid #f87171"
+                      : "1px solid #374151",
+                  }}
+                />
+                {errors.username && <p style={errorStyle}>{errors.username}</p>}
+              </div>
 
-            <input
-              type="password"
-              className={`register-input ${errors.password ? "error-input" : ""}`}
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <p className="error-text">{errors.password}</p>
+              <div>
+                <input
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  style={{
+                    ...inputStyle,
+                    border: errors.email
+                      ? "1px solid #f87171"
+                      : "1px solid #374151",
+                  }}
+                />
+                {errors.email && <p style={errorStyle}>{errors.email}</p>}
+              </div>
 
-            <input
-              type="password"
-              className={`register-input ${errors.confirmPassword ? "error-input" : ""}`}
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-            <p className="error-text">{errors.confirmPassword}</p>
+              <div>
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  style={{
+                    ...inputStyle,
+                    border: errors.password
+                      ? "1px solid #f87171"
+                      : "1px solid #374151",
+                  }}
+                />
+                {errors.password && <p style={errorStyle}>{errors.password}</p>}
+              </div>
+
+              <div>
+                <input
+                  type="password"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  style={{
+                    ...inputStyle,
+                    border: errors.confirmPassword
+                      ? "1px solid #f87171"
+                      : "1px solid #374151",
+                  }}
+                />
+                {errors.confirmPassword && (
+                  <p style={errorStyle}>{errors.confirmPassword}</p>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                style={{
+                  width: "100%",
+                  padding: "14px",
+                  border: "none",
+                  borderRadius: "12px",
+                  background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+                  color: "white",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                  marginTop: "20px",
+                  height: "50px",
+                }}
+              >
+                Create Account
+              </button>
+            </form>
+
+            <p
+              style={{
+                color: "#8b9199",
+                textAlign: "center",
+                marginTop: "18px",
+                fontSize: "18px",
+              }}
+            >
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                style={{
+                  color: "#8b5cf6",
+                  textDecoration: "none",
+                  fontWeight: "600",
+                }}
+              >
+                Sign in
+              </Link>
+            </p>
           </div>
-
-          <button className="register-button" type="submit">
-            Create Account
-          </button>
-        </form>
-
-        <p className="register-login-link">
-          Already have an account? <Link to="/login">Sign in</Link>
-        </p>
+        </div>
       </div>
     </div>
   );
