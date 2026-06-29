@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { InterviewContext } from "../interview.context";
 import { useParams } from "react-router-dom";
 import {
@@ -93,7 +93,7 @@ const useInterview = () => {
     } else {
       getAllReports();
     }
-  }, [interviewId]);
+  }, [interviewId]); // eslint-disable-line react-hooks/exhaustive-deps
   return {
     loading,
     report,

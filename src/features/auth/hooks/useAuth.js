@@ -62,7 +62,7 @@ export const useAuth = () => {
     };
 
     initUser();
-  }, []);
+  }, [setLoading, setUser]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return {
     user,

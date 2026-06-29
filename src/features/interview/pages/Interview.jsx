@@ -18,7 +18,7 @@ function Interview() {
     if (interviewId) {
       getReportById(interviewId);
     }
-  }, [interviewId]);
+  }, [interviewId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const logoutUser = async () => {
     await handleLogout();
