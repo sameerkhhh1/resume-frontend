@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Home.css";
 import useInterview from "../hooks/useInterview";
-import { useAuth } from "../../auth/hooks/useAuth";
+// import { useAuth } from "../../auth/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 const generatingMessages = [
@@ -25,7 +25,7 @@ function Home() {
   const resumeInputRef = useRef(null);
 
   const navigate = useNavigate();
-  const { handleLogout } = useAuth();
+  // const { handleLogout } = useAuth();
 
   useEffect(() => {
     if (!loading) {
@@ -64,10 +64,10 @@ function Home() {
     navigate(`/interview/${data._id}`);
   };
 
-  const logoutUser = async () => {
-    await handleLogout();
-    navigate("/login");
-  };
+  // const logoutUser = async () => {
+  //   await handleLogout();
+  //   navigate("/login");
+  // };
 
   if (loading) {
     return (
@@ -80,9 +80,9 @@ function Home() {
 
   return (
     <div className="home">
-      <button className="logout-btn-floating" onClick={logoutUser}>
+      {/* <button className="logout-btn-floating" onClick={logoutUser}>
         ⏻ Logout
-      </button>
+      </button> */}
 
       <div className="home-header">
         <div className="home-title">Create Your Custom Interview Plan</div>
