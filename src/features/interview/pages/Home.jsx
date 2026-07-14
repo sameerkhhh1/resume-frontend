@@ -5,7 +5,7 @@ import { useAuth } from "../../auth/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
-  const { loading, generateReport, report } = useInterview();
+  const { loading, generateReport } = useInterview();
   const [jobDescription, setJobDescription] = useState("");
   const [selfDescription, setSelfDescription] = useState("");
   const [fileName, setFileName] = useState("");
