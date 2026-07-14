@@ -1,19 +1,44 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Home.css";
 import useInterview from "../hooks/useInterview";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+
+const generatingMessages = [
+  "Reading your resume...",
+  "Understanding the job description...",
+  "Matching your skills...",
+  "Generating technical questions...",
+  "Generating behavioral questions...",
+  "Identifying skill gaps...",
+  "Building your preparation roadmap...",
+  "Almost done...",
+];
 
 function Home() {
   const { loading, generateReport } = useInterview();
   const [jobDescription, setJobDescription] = useState("");
   const [selfDescription, setSelfDescription] = useState("");
   const [fileName, setFileName] = useState("");
+  const [messageIndex, setMessageIndex] = useState(0);
 
   const resumeInputRef = useRef(null);
 
   const navigate = useNavigate();
   const { handleLogout } = useAuth();
+
+  useEffect(() => {
+    if (!loading) {
+      setMessageIndex(0);
+      return;
+    }
+    const interval = setInterval(() => {
+      setMessageIndex((prev) =>
+        prev < generatingMessages.length - 1 ? prev + 1 : prev,
+      );
+    }, 2200);
+    return () => clearInterval(interval);
+  }, [loading]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -48,6 +73,7 @@ function Home() {
     return (
       <div className="loading-screen">
         <div className="spinner" />
+        <p className="loading-text">{generatingMessages[messageIndex]}</p>
       </div>
     );
   }

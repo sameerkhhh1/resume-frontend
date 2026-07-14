@@ -14,6 +14,8 @@ body {
 /* LEFT SIDEBAR - sticky so it never gets pushed down by tall content */
 .sidebar {
   width: 220px;
+  min-width: 220px;
+  flex-shrink: 0;
   background: #161b22;
   padding: 20px;
   display: flex;
@@ -24,6 +26,8 @@ body {
   height: 100vh;
   box-sizing: border-box;
   border-right: 1px solid #30363d;
+  overflow: hidden;
+  z-index: 5;
 }
 
 .sidebar-nav {
@@ -80,6 +84,7 @@ body {
 /* CENTER */
 .content {
   flex: 1;
+  min-width: 0;
   padding: 30px 40px;
   min-height: 100vh;
   box-sizing: border-box;
@@ -182,6 +187,8 @@ body {
 /* RIGHT */
 .right-sidebar {
   width: 260px;
+  min-width: 260px;
+  flex-shrink: 0;
   background: #161b22;
   padding: 20px;
   position: sticky;
@@ -190,6 +197,7 @@ body {
   box-sizing: border-box;
   border-left: 1px solid #30363d;
   overflow-y: auto;
+  z-index: 5;
 }
 
 .score-box,
