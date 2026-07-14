@@ -63,6 +63,20 @@ export const Login = () => {
     }
   };
 
+  // if (loading)
+  //   return (
+  //     <div
+  //       style={{
+  //         minHeight: "100vh",
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //         backgroundColor: "#0D131D",
+  //       }}
+  //     >
+  //       <h2 style={{ color: "white" }}>Loading...</h2>
+  //     </div>
+  //   );
   if (loading)
     return (
       <div
@@ -74,10 +88,24 @@ export const Login = () => {
           backgroundColor: "#0D131D",
         }}
       >
-        <h2 style={{ color: "white" }}>Loading...</h2>
+        <style>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
+        <div
+          style={{
+            width: "56px",
+            height: "56px",
+            border: "5px solid #1f2937",
+            borderTop: "5px solid #8b5cf6",
+            borderRadius: "50%",
+            animation: "spin 0.8s linear infinite",
+          }}
+        />
       </div>
     );
-
   return (
     <div
       style={{

@@ -8,11 +8,17 @@ function Home() {
   const { loading, generateReport, report } = useInterview();
   const [jobDescription, setJobDescription] = useState("");
   const [selfDescription, setSelfDescription] = useState("");
+  const [fileName, setFileName] = useState("");
 
   const resumeInputRef = useRef(null);
 
   const navigate = useNavigate();
   const { handleLogout } = useAuth();
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFileName(file ? file.name : "");
+  };
 
   const handleGenerateReport = async () => {
     const resumeFile = resumeInputRef.current.files[0];
@@ -32,19 +38,27 @@ function Home() {
     });
     navigate(`/interview/${data._id}`);
   };
-  if (loading) {
-    return <h1>Loading your interview plan...</h1>;
-  }
 
   const logoutUser = async () => {
     await handleLogout();
     navigate("/login");
   };
-  console.log(report, "reports");
+
+  if (loading) {
+    return (
+      <div className="loading-screen">
+        <div className="spinner" />
+      </div>
+    );
+  }
+
   return (
     <div className="home">
+      <button className="logout-btn-floating" onClick={logoutUser}>
+        ⏻ Logout
+      </button>
+
       <div className="home-header">
-        <button onClick={logoutUser}>Logout</button>
         <div className="home-title">Create Your Custom Interview Plan</div>
 
         <div className="home-subtitle">
@@ -71,12 +85,20 @@ function Home() {
         <div className="right-section">
           <div className="section-title">Upload Resume</div>
 
-          <input
-            ref={resumeInputRef}
-            type="file"
-            className="file-input"
-            accept=".pdf"
-          />
+          <label className="file-upload-wrapper" htmlFor="resume-upload">
+            <span className="file-upload-icon">📄</span>
+            <span className="file-upload-text">
+              {fileName ? fileName : "Click to upload your resume (PDF)"}
+            </span>
+            <input
+              ref={resumeInputRef}
+              id="resume-upload"
+              type="file"
+              className="file-input-hidden"
+              accept=".pdf"
+              onChange={handleFileChange}
+            />
+          </label>
 
           <div className="or-text">OR</div>
 

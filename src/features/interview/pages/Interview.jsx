@@ -14,7 +14,6 @@ function Interview() {
   const { handleLogout } = useAuth();
 
   useEffect(() => {
-    console.log("ID:", interviewId);
     if (interviewId) {
       getReportById(interviewId);
     }
@@ -24,10 +23,11 @@ function Interview() {
     await handleLogout();
     navigate("/login");
   };
+
   if (loading || !report) {
     return (
       <div className="loading">
-        <h2>Loading...</h2>
+        <div className="spinner" />
       </div>
     );
   }
@@ -36,34 +36,40 @@ function Interview() {
     <div className="interview-container">
       {/* LEFT SIDEBAR */}
       <div className="sidebar">
-        <button
-          className={activeTab === "technical" ? "active" : ""}
-          onClick={() => setActiveTab("technical")}
-        >
-          Technical Questions
-        </button>
+        <div className="sidebar-nav">
+          <button
+            className={activeTab === "technical" ? "active" : ""}
+            onClick={() => setActiveTab("technical")}
+          >
+            Technical Questions
+          </button>
 
-        <button
-          className={activeTab === "behavioral" ? "active" : ""}
-          onClick={() => setActiveTab("behavioral")}
-        >
-          Behavioral Questions
-        </button>
+          <button
+            className={activeTab === "behavioral" ? "active" : ""}
+            onClick={() => setActiveTab("behavioral")}
+          >
+            Behavioral Questions
+          </button>
 
-        <button
-          className={activeTab === "roadmap" ? "active" : ""}
-          onClick={() => setActiveTab("roadmap")}
-        >
-          Road Map
-        </button>
+          <button
+            className={activeTab === "roadmap" ? "active" : ""}
+            onClick={() => setActiveTab("roadmap")}
+          >
+            Road Map
+          </button>
+        </div>
 
-        <button
-          className="download-btn"
-          onClick={() => getResumePdf(interviewId)}
-        >
-          Download Resume
-        </button>
-        <button onClick={logoutUser}>Logout</button>
+        <div className="sidebar-actions">
+          <button
+            className="download-btn"
+            onClick={() => getResumePdf(interviewId)}
+          >
+            Download Resume
+          </button>
+          <button className="logout-btn" onClick={logoutUser}>
+            Logout
+          </button>
+        </div>
       </div>
 
       {/* CENTER CONTENT */}
@@ -76,15 +82,15 @@ function Interview() {
               <details key={index} className="card">
                 <summary>{item.question}</summary>
 
-                <p>
-                  <strong>Intention:</strong>
-                  {item.intention}
-                </p>
+                <div className="qa-block">
+                  <p className="intention-label">Intention</p>
+                  <p className="intention-text">{item.intention}</p>
+                </div>
 
-                <p>
-                  <strong>Answer:</strong>
-                  {item.answer}
-                </p>
+                <div className="qa-block">
+                  <p className="answer-label">Answer</p>
+                  <p className="answer-text">{item.answer}</p>
+                </div>
               </details>
             ))}
           </>
@@ -98,15 +104,15 @@ function Interview() {
               <details key={index} className="card">
                 <summary>{item.question}</summary>
 
-                <p>
-                  <strong>Intention:</strong>
-                  {item.intention}
-                </p>
+                <div className="qa-block">
+                  <p className="intention-label">Intention</p>
+                  <p className="intention-text">{item.intention}</p>
+                </div>
 
-                <p>
-                  <strong>Answer:</strong>
-                  {item.answer}
-                </p>
+                <div className="qa-block">
+                  <p className="answer-label">Answer</p>
+                  <p className="answer-text">{item.answer}</p>
+                </div>
               </details>
             ))}
           </>
@@ -145,8 +151,9 @@ function Interview() {
           <h3>Skill Gaps</h3>
 
           {report.skillGaps.map((gap, index) => (
-            <div key={index} className="skill">
-              {gap.skill}
+            <div key={index} className={`skill severity-${gap.severity}`}>
+              <span className="skill-name">{gap.skill}</span>
+              <span className="skill-severity">{gap.severity}</span>
             </div>
           ))}
         </div>
